@@ -51,7 +51,10 @@ const getSettings = chrome.storage.local.get(["settings"]).then((result) => {
     }
     // set default timer if it exists
     else if (settings.defaultTimer) {
-      time = settings.defaultTime;
+      time = 0;
+      time += settings.defaultTime.hours * 60 * 60 * 1000; // convert to milliseconds
+      time += settings.defaultTime.minutes * 60 * 1000; // convert to milliseconds
+      time += settings.defaultTime.seconds * 1000; // convert to milliseconds
       console.log("timer set to: ", time);
       timer = setTimeout(sendDeleteMessage, time);
     } else {

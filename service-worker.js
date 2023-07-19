@@ -2,10 +2,10 @@
  * @description
  */
 let settings = {
-  defaultTimer: false,
+  defaultTimer: true,
   defaultTime: {
     hours: 0,
-    minutes: 0,
+    minutes: 5,
     seconds: 0,
   },
   urls: [
@@ -30,7 +30,9 @@ chrome.runtime.onInstalled.addListener(function () {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.timer === "done") {
     console.log("closing tab: ", sender.origin);
-    chrome.tabs.remove(sender.tab.id);
+    // chrome.tabs.remove(sender.tab.id);
+    chrome.tabs.update(sender.tab.id, { active: true });
+
     sendResponse({ farewell: "goodbye" });
   }
 });
